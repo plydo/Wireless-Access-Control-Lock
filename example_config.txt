@@ -1,0 +1,48 @@
+
+# example_config.txt - examples and explanations of the configuration file format
+
+# The config file format is similar to the "ini" and "yaml" formats. It consists
+# of a single line with the setting's name first, the setting's value second, and
+# a separator character in between. The separator character is either '=' (preferred)
+# or ':'. The list of settings is unordered and non-hierarchical (no section
+# headings). Though unordered, later settings override earlier settings.
+# Whitespace is ignored if it is before the name, after the value, in front of the
+# separator, or immediately after the separator. Comments begin with '#' (preferred)
+# or ';'. Comments may be used on their own line or at the end of a line containing
+a setting. For the setting's name, uppercase and lowercase A-Z are treated the same.
+# In addition, names may have '-' (preferred) or '_' in them -- these are ignored.
+
+# File Format Examples... (the first line is the canonical/preferred format):
+  log-level = 1 # The format in this line is preferred
+  Log_level : 1 ; another comment
+  LogLevel  = 1
+  loglevel:1
+  setting-str = Single or double quotes for strings are also OK # comment
+
+# Settings
+# Default settings are 0 for number and null for strings unless specified otherwise below
+Device-Name = this.machine # default=dummy, and Device-Name is used for Device-Group if it's blank
+Device-Group = this-area # sometimes used with Device-Name for devices with identical access lists
+Hostname = Wacl-01      # default=WACL-xxyyzz (xxyyzz=last half of mac address)
+Wifi-SSID = myWiFiNetworkName # default=null/blank/nothing; to always use as an AP, do not set this
+Wifi-Password = myWiFiPassword # default=null/blank/nothing
+Webserver-Username = admin # default=admin
+Webserver-Password = admin # default=admin
+Webserver-Minutes = 60  # How long to leave the webserver enabled, 0=never, default=99,999,999
+Log-Level-File = 3      # 1=debug+ 2=info+ 3+=def=users+ 4=warn+ 5=error, -1..-5=same but no user logging
+Log-Level-Serial = 3    # ditto but for USB serial output rather than file output
+Log-File-Max = 10000    # File logging max length in bytes, two files so max is 2x, 0=default=disabled
+Admin-IDs = 01234, 98765 12345 # two admin-ID scans in a row triggers a mode to add IDs by scanning them
+Backend-URL = https://x.com
+Backend-Type = 0        # 0=none (standalone), 1=BodgeryV0, 2=BodgeryV1
+Backend-Username = x    # Login name for backend
+Backend-Secret = x      # Password, token, etc. for backend
+Reader-Type = 0         # RFID reader, 0=none, 1=MFRC522, 2=PN532, 3=rdm6300, 4=Wiegand
+Current-Pin = 0         # Current sensor for machine control, 0=none, negative=inactive-low/active-high
+Voltage-Pin = 0         # Like current sensor pin but senses an off machine is on by sensing voltage
+Beeper-Pin = 0          # Beeper, 0=none, negative=inactive-low/active-high
+Rx2-Pin = 0             # Serial Port 2 Receive (rdm6300, etc.), default=hardware-default
+Tx2-Pin = 0             # Serial Port 2 Transmit (rdm6300, etc.), default=hardware-default
+Output-Pin = 0          # Lock control, 0=none, negative=inactive-low/active-high
+Output-Milliseconds = 0 # 0=toggle the lock output (i.e. continuous output until retriggered)
+Auto-Off-Minutes = 0    # Turn continuous output off after no current sensed for this time, 0=never
